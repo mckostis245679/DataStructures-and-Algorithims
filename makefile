@@ -8,7 +8,7 @@ CXXFLAGS = -Wall -Wextra -std=c++11
 TARGET = myprogram
 
 # Define the source files
-SRCS = main.cpp filehandler.cpp bintree.cpp
+SRCS = main.cpp filehandler.cpp bintree.cpp bintree_births.cpp bintree_region.cpp
 
 # Define the header files (for dependency tracking)
 HDRS = region.h
