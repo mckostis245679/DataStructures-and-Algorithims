@@ -9,6 +9,7 @@
 #include "cmath"
 #include "iostream"
 #include "cstdlib"
+#include "vector"
 using namespace std;
 
 struct Region{
@@ -22,6 +23,7 @@ struct node {
   Region data;
   struct node *left;
   struct node *right;
+  struct node *equalnext;
 };
 
 //File Handling
@@ -31,5 +33,10 @@ node* read_csv(node* root,const string& filename);
 //Binary-tree
   node* newNode(Region data);
   node* insert(node* root,Region data);
-void traverseInOrder( node *temp,int counter); 
+  node* search(node* root,int key);
+  node* find_min(node* root);
+  node* find_max(node* root);
+void traverseInOrder( node *temp); 
+void print_node_equal_list(node* temp);
+void print_node(node *temp);
 #endif //REGION_H

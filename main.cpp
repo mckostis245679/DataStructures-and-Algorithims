@@ -6,7 +6,15 @@ int main() {
     node *root=nullptr;
     root=read_csv(root, fname);
     cout << "Inorder traversal:\n";
-    traverseInOrder(root,0);
+    traverseInOrder(root);
+    node* item=search(root,12);
+    print_node_equal_list(item);
+    item=find_min(root);
+    print_node_equal_list(item);
+    item=find_max(root);
+    print_node_equal_list(item);
+
+
 
     return 0;
 }
