@@ -30,4 +30,36 @@ node* search_by_births(node* root,int key){
     else return search_by_births(root->right,key);
 }
 
+node* find_min(node* root){
+   if (root->left==nullptr) return root ;
+    //check if the node contains key
+    return find_min(root->left);
+}
+
+node* find_max(node* root){
+   if (root->right==nullptr) return root ;
+    //check if the node contains key
+    return find_max(root->right);
+}
+
+void displayMenu(node* root) {
+    int choice;
+    node* key;
+    do {
+         cout << "----Menu----\n";
+        cout << "1. Find Region/Regions with the MINIMUM NUMBER OF BIRTHS\n";
+        cout << "2. Find Region/Regions with the MAXIMUM NUMBER OF BIRTHS\n";
+        cout << "3. Exit\n";
+        cout << "Choose an option: ";
+        cin >> choice;
+
+        if (choice == 1) {
+             key=find_min(root);
+            print_node_equal_list(key);
+        } else if (choice == 2) {
+            key=find_max(root);
+            print_node_equal_list(key);
+        }
+    } while (choice != 3);
+}
 
