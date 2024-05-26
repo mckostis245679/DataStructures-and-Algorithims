@@ -10,11 +10,19 @@ int heightcalc(node* temp){
 int b_factor(node *temp) {
     int left_height=-1;
     int right_height=-1;
-    if(temp->left!=nullptr) left_height=temp->left->height;
-    if(temp->right!=nullptr) right_height=temp->right->height;
-    
-    return left_height-right_height;//left.height-right.height
+    if(temp->left!=nullptr){
+        left_height=temp->left->height;
+        if(left_height==-1)left_height=heightcalc(temp->left);
+    } 
+    if(temp->right!=nullptr) {
+        right_height=temp->right->height;
+        if(right_height==-1)right_height=heightcalc(temp->right);
+    }
+        return left_height-right_height;//left.height-right.height
 }
+
+
+// B FACTOR : -1,0,1 
 
 
 void rotate_left(node *a){
@@ -56,17 +64,17 @@ void rotate_right(node *a){
 }
 
 
-void lilwayne(node* a){
-    heightcalc(a);
-    int balancefactor=b_factor(a);
+void lilwayne(node* a,int balancefactor){
     if (balancefactor>1){
         if(b_factor(a->left)>=0){
             rotate_right(a);
+            heightcalc(a);
             cout<<"right rotate\n";
         } 
         else {
             rotate_left(a->left);
             rotate_right(a);
+            heightcalc(a);
             cout<<"left right rotate\n";
         }
         return;
@@ -74,11 +82,13 @@ void lilwayne(node* a){
     else if(balancefactor<-1){
         if(b_factor(a->right)<=0) {
             rotate_left(a);
+            heightcalc(a);
             cout<<"left rotate\n";
         }
         else{
             rotate_right(a->right);
             rotate_left(a);
+            heightcalc(a);
             cout<<"right left rotate\n";
         }
     }
@@ -90,17 +100,24 @@ node* insert_by_region_avl(node* root, Region data){
 
     //search left subtree for empty node
     if (data.region < root->data.region) {
-        root->left = insert_by_region(root->left, data);
+        root->left = insert_by_region_avl(root->left, data);
+        root->height=-1;
     }
 
         //search right subtree for empty node
     else if(data.region > root->data.region) {
-        root->right=insert_by_region(root->right,data);
+        root->right=insert_by_region_avl(root->right,data);
+         root->height=-1;
     }
     else if(data.region == root->data.region) {
-        root->equalnext=insert_by_region(root->equalnext,data);
+        root->equalnext=insert_by_region_avl(root->equalnext,data);
         return root;
     }
-    lilwayne(root);
+   
+   int balancefactor=b_factor(root);
+   if(balancefactor<-1 || balancefactor >1) lilwayne(root,balancefactor);
+   
+   
+
     return root;
 }
