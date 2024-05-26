@@ -17,7 +17,8 @@ int b_factor(node *temp) {
     if(temp->right!=nullptr) {
         right_height=temp->right->height;
         if(right_height==-1)right_height=heightcalc(temp->right);
-    }
+    }   
+        temp->height=max(left_height,right_height)+1;
         return left_height-right_height;//left.height-right.height
 }
 
