@@ -55,10 +55,10 @@ void displayMenu(node* root) {
 
         if (choice == 1) {
              key=find_min(root);
-            print_node_equal_list(key);
+            print_node_equal_tree(key);
         } else if (choice == 2) {
             key=find_max(root);
-            print_node_equal_list(key);
+            print_node_equal_tree(key);
         }
     } while (choice != 3);
 }

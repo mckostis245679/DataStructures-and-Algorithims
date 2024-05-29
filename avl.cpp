@@ -138,12 +138,11 @@ node* delete_node_avl(node* temp, string key){
   } 
   if (key < temp->data.region) {
     temp->left = delete_node(temp->left, key);
-   
+    cout<<temp->data.region<<endl;
   }
   else if (key > temp->data.region) {
     temp->right = delete_node(temp->right, key);
-    lilwayne(temp);
-    return temp;
+    cout<<temp->data.region<<endl;
   }
   else{
     if(temp->left==nullptr && temp->right==nullptr) {//if the node is a leaf just delete
