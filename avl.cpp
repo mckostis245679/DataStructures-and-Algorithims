@@ -15,14 +15,14 @@ int b_factor(node *temp) {
          
         if(left_height==-1){
             left_height=heightcalc(temp->left);
-            cout<<"hrightcalc called\n";
+            cout<<"heightcalc called\n";
         }
     } 
     if(temp->right!=nullptr) {
         right_height=temp->right->height;
         
         if(right_height==-1){
-            cout<<"hrightcalc called\n";
+            cout<<"heightcalc called\n";
             right_height=heightcalc(temp->right);
         }   
     }
@@ -73,7 +73,8 @@ void rotate_right(node *a){
 }
 
 
-void lilwayne(node* a,int balancefactor){
+void lilwayne(node* a){
+     int balancefactor=b_factor(a);
     if (balancefactor>1){
         if(b_factor(a->left)>=0){
             rotate_right(a);
@@ -110,23 +111,72 @@ node* insert_by_region_avl(node* root, Region data){
     //search left subtree for empty node
     if (data.region < root->data.region) {
         root->left = insert_by_region_avl(root->left, data);
-        root->height=-1;
     }
 
         //search right subtree for empty node
     else if(data.region > root->data.region) {
         root->right=insert_by_region_avl(root->right,data);
-         root->height=-1;
+        
     }
     else if(data.region == root->data.region) {
         root->equalnext=insert_by_region_avl(root->equalnext,data);
         return root;
     }
    
-   int balancefactor=b_factor(root);
-   if(balancefactor<-1 || balancefactor >1) lilwayne(root,balancefactor);
+  
+   lilwayne(root);
    
    
 
     return root;
 }
+
+node* delete_node_avl(node* temp, string key){
+  if (temp==nullptr){
+    cout<<"no such key to be deleted\n";
+    return temp;
+  } 
+  if (key < temp->data.region) {
+    temp->left = delete_node(temp->left, key);
+   
+  }
+  else if (key > temp->data.region) {
+    temp->right = delete_node(temp->right, key);
+    lilwayne(temp);
+    return temp;
+  }
+  else{
+    if(temp->left==nullptr && temp->right==nullptr) {//if the node is a leaf just delete
+        cout<<"leaf\n";
+        deletetree(temp->equalnext);  
+        delete temp;
+        return nullptr;
+    }
+    else if (temp->right==nullptr){//no right child
+        cout<<"no right child\n";
+        node* left=temp->left;
+        deletetree(temp->equalnext);
+        delete temp;
+        return left;
+    }
+    else if (temp->left==nullptr){//no lieft child
+        cout<<"no left child\n";
+        node* right=temp->right;
+        deletetree(temp->equalnext);
+        delete temp;
+        return right;
+    }
+    else{// two children ,swap node with the next minimum value 
+        cout<<"two children\n";
+        node* minvalue=find_min(temp->right);
+        deletetree(temp->equalnext);
+        //swap node with min value of the right subtree of the temp node
+        temp->data=minvalue->data;
+        temp->equalnext=minvalue->equalnext;
+        temp->right=delete_node(temp->right,minvalue->data.region);
+    }
+  } 
+   lilwayne(temp);
+    return temp;
+}
+
