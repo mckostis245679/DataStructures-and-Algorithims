@@ -137,12 +137,10 @@ node* delete_node_avl(node* temp, string key){
     return temp;
   } 
   if (key < temp->data.region) {
-    temp->left = delete_node(temp->left, key);
-    cout<<temp->data.region<<endl;
+    temp->left = delete_node_avl(temp->left, key);
   }
   else if (key > temp->data.region) {
-    temp->right = delete_node(temp->right, key);
-    cout<<temp->data.region<<endl;
+    temp->right = delete_node_avl(temp->right, key);
   }
   else{
     if(temp->left==nullptr && temp->right==nullptr) {//if the node is a leaf just delete
@@ -172,7 +170,7 @@ node* delete_node_avl(node* temp, string key){
         //swap node with min value of the right subtree of the temp node
         temp->data=minvalue->data;
         temp->equalnext=minvalue->equalnext;
-        temp->right=delete_node(temp->right,minvalue->data.region);
+        temp->right=delete_node_avl(temp->right,minvalue->data.region);
     }
   } 
    lilwayne(temp);
