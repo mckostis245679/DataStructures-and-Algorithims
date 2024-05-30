@@ -7,17 +7,17 @@ node* insert_by_births(node* root,Region data){
     //search left subtree for empty node
     if (data.cnt<root->data.cnt) {
         root->left=insert_by_births(root->left,data);
-        return root;
     }
     //search right subtree for empty node
     else if(data.cnt>root->data.cnt) {
         root->right=insert_by_births(root->right,data);
-        return root;
     }
     else {
         root->equalnext=insert_by_births(root->equalnext,data);
         return root;
     }
+    lilwayne(root);
+    return root;
 }
 
 node* search_by_births(node* root,int key){

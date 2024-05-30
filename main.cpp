@@ -16,15 +16,15 @@ int main() {
    
 
     //REGION BST
-  root=read_csv_regions_avl(root,fname);
-    heightcalc(root);
+  root=read_csv_regions(root,fname);
     traverseInOrder(root);
-    printBinaryTree(root,0,10);
+    printBinaryTreeRegion(root,0,10);
    cout<<"AFTER DELETION\n";
-   root=delete_node_avl(root,"Tasman region");
-  // heightcalc(root);
+   root=delete_node_region(root,"Nelson region");
    traverseInOrder(root);
-    printBinaryTree(root,0,10);
+    printBinaryTreeRegion(root,0,10);
+    printBinaryTreePeriod(root->equalnext,0,10);
+    
     
     //HASHING
     /*vector<node*> htable(d);

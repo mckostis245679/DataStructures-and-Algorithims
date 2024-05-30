@@ -15,14 +15,12 @@ int b_factor(node *temp) {
          
         if(left_height==-1){
             left_height=heightcalc(temp->left);
-            cout<<"heightcalc called\n";
         }
     } 
     if(temp->right!=nullptr) {
         right_height=temp->right->height;
         
         if(right_height==-1){
-            cout<<"heightcalc called\n";
             right_height=heightcalc(temp->right);
         }   
     }
@@ -104,43 +102,18 @@ void lilwayne(node* a){
     }
 }
 
-node* insert_by_region_avl(node* root, Region data){
-    //when you find empty child create a new node
-    if (root==nullptr) return newNode(data);
 
-    //search left subtree for empty node
-    if (data.region < root->data.region) {
-        root->left = insert_by_region_avl(root->left, data);
-    }
-
-        //search right subtree for empty node
-    else if(data.region > root->data.region) {
-        root->right=insert_by_region_avl(root->right,data);
-        
-    }
-    else if(data.region == root->data.region) {
-        root->equalnext=insert_by_region_avl(root->equalnext,data);
-        return root;
-    }
-   
-  
-   lilwayne(root);
-   
-   
-
-    return root;
-}
-
-node* delete_node_avl(node* temp, string key){
+/*
+node* delete_node_region_avl(node* temp, string key){
   if (temp==nullptr){
     cout<<"no such key to be deleted\n";
     return temp;
   } 
   if (key < temp->data.region) {
-    temp->left = delete_node_avl(temp->left, key);
+    temp->left = delete_node_region_avl(temp->left, key);
   }
   else if (key > temp->data.region) {
-    temp->right = delete_node_avl(temp->right, key);
+    temp->right = delete_node_region_avl(temp->right, key);
   }
   else{
     if(temp->left==nullptr && temp->right==nullptr) {//if the node is a leaf just delete
@@ -170,10 +143,10 @@ node* delete_node_avl(node* temp, string key){
         //swap node with min value of the right subtree of the temp node
         temp->data=minvalue->data;
         temp->equalnext=minvalue->equalnext;
-        temp->right=delete_node_avl(temp->right,minvalue->data.region);
+        temp->right=delete_node_region_avl(temp->right,minvalue->data.region);
     }
   } 
    lilwayne(temp);
     return temp;
-}
+}*/
 
