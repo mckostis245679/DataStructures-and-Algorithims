@@ -5,33 +5,34 @@ int main() {
     string fname = "C:\\Users\\Kostas\\Desktop\\DATABASES_PART_2\\bd-dec22-births-deaths-by-region.csv";
     node *root=nullptr;
     int d=11;
-
-    //BIRTHS BST
-   /* root=read_csv_births(root, fname);
-    cout << "Inorder traversal:\n";
-    heighcalc(root);
-    traverseInOrder(root);*/
-    //node* item=search_by_births(root,12);
-   // displayMenu(root);
-   
-
-    //REGION BST
-  root=read_csv_regions_avl(root,fname);
-    heightcalc(root);
+    int choice;
+    cout << "----Menu----\n";
+    cout << "1. Open A menu(bst based on regions)\n";
+    cout << "2. Open B menu(bst based on birth count)\n";
+    cout << "3. Open C menu(hashing table with bst chains)\n";
+    cout << "Choose an option: ";
+    cin >> choice;
+    if (choice == 1) {
+      root=read_csv_regions(root,fname);
+      RegionMenu(root);
+    } else if (choice == 2) {
+      root=read_csv_births(root, fname);
+      BirthMenu(root);
+    }else if (choice == 3) {
+       vector<node*> htable(d);
+        read_csv_regions_htable(htable,fname);
+        HashingMenu(htable);
+    }
+  
+   /* //REGION BST
+  root=read_csv_regions(root,fname);
     traverseInOrder(root);
-    printBinaryTree(root,0,10);
+    printBinaryTreeRegion(root,0,10);
    cout<<"AFTER DELETION\n";
-   root=delete_node_avl(root,"Tasman region");
-  // heightcalc(root);
+   root=delete_node_region(root,"Nelson region");
    traverseInOrder(root);
-    printBinaryTree(root,0,10);
-    
-    //HASHING
-    /*vector<node*> htable(d);
-    read_csv_regions_htable(htable,fname);
-    print_htable(htable);
-    node* temp=search_htable(htable,"New Zealand","2006");
-    print_node(temp);*/
+    printBinaryTreeRegion(root,0,10);
+    printBinaryTreePeriod(root->equalnext,0,10);*/
 
     return 0;
 }

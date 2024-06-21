@@ -7,17 +7,17 @@ node* insert_by_period(node* root,Region data){
     //search left subtree for empty node
     if (data.period <root->data.period) {
         root->left=insert_by_period(root->left,data);
-        return root;
     }
     //search right subtree for empty node
     else if(data.period>root->data.period) {
         root->right=insert_by_period(root->right,data);
-        return root;
     }
     else {
         root->equalnext=insert_by_period(root->equalnext,data);
         return root;
     }
+    lilwayne(root);
+    return root;
 }
 
 node* search_by_period(node* root,string period){
@@ -25,7 +25,7 @@ node* search_by_period(node* root,string period){
     //check if the node contains key
     if(root->data.period==period)return root;
     //search left subtree
-    else if(period < root->data.period) return search_by_region(root->left,period);
+    else if(period < root->data.period) return search_by_period(root->left,period);
     //search right subtree
-    else return search_by_region(root->right,period);
+    else return search_by_period(root->right,period);
 }
